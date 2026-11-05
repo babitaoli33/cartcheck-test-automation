@@ -1,0 +1,11 @@
+quantity,expected_status,technique
+-1,400,boundary below minimum
+0,400,boundary: just below minimum
+1,201,boundary: minimum
+2,201,equivalence: valid middle
+10,201,boundary: maximum
+11,400,boundary: just above maximum
+"""3""",400,invalid type: string
+2.5,400,invalid type: decimal
+true,400,invalid type: boolean
+null,400,missing value

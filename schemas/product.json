@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Product",
+  "type": "object",
+  "required": ["id", "name", "price", "stock", "category", "in_stock"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {"type": "integer", "minimum": 1},
+    "name": {"type": "string", "minLength": 1},
+    "price": {"type": "string", "pattern": "^\\d+\\.\\d{2}$"},
+    "stock": {"type": "integer", "minimum": 0},
+    "category": {"type": "string"},
+    "in_stock": {"type": "boolean"}
+  }
+}

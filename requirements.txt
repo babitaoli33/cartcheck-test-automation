@@ -1,0 +1,6 @@
+flask>=3.0
+requests>=2.31
+jsonschema>=4.20
+pytest>=8.0
+pytest-playwright>=0.5
+pytest-html>=4.1

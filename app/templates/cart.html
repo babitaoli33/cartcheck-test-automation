@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Your cart - ShopLite{% endblock %}
+{% block content %}
+<h1>Your cart</h1>
+{% if error %}<p class="error" data-testid="cart-error">{{ error }}</p>{% endif %}
+{% if not cart["items"] %}
+  <p data-testid="empty-cart">Your cart is empty.</p>
+{% else %}
+<table>
+  <tr><th>Product</th><th>Price</th><th>Qty</th><th>Total</th><th></th></tr>
+  {% for item in cart["items"] %}
+  <tr data-testid="cart-row-{{ item.product_id }}">
+    <td data-testid="item-name">{{ item.name }}</td>
+    <td>${{ item.unit_price }}</td>
+    <td data-testid="item-qty">{{ item.quantity }}</td>
+    <td data-testid="line-total">${{ item.line_total }}</td>
+    <td><form method="post" action="/cart/remove/{{ item.product_id }}">
+      <button type="submit" data-testid="remove-{{ item.product_id }}">Remove</button></form></td>
+  </tr>
+  {% endfor %}
+</table>
+<form method="post" action="/cart/discount">
+  <input name="code" placeholder="Discount code" data-testid="discount-input">
+  <button type="submit" data-testid="apply-discount">Apply</button>
+</form>
+<form method="get" action="/cart">
+  <label>Province
+    <select name="province" data-testid="province-select" onchange="this.form.submit()">
+      {% for p in provinces %}<option value="{{ p }}" {% if p == cart.province %}selected{% endif %}>{{ p }}</option>{% endfor %}
+    </select>
+  </label>
+</form>
+<table>
+  <tr><td>Subtotal</td><td data-testid="subtotal">${{ cart.subtotal }}</td></tr>
+  {% if cart.discount_code %}<tr><td>Discount ({{ cart.discount_code }})</td><td data-testid="discount">-${{ cart.discount }}</td></tr>{% endif %}
+  <tr><td>Tax ({{ cart.province }})</td><td data-testid="tax">${{ cart.tax }}</td></tr>
+  <tr><th>Total</th><th data-testid="total">${{ cart.total }}</th></tr>
+</table>
+<p><a href="/checkout?province={{ cart.province }}" data-testid="checkout-link">Proceed to checkout</a></p>
+{% endif %}
+{% endblock %}

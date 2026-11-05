@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Cart",
+  "type": "object",
+  "required": ["cart_id", "status", "items", "item_count", "subtotal", "discount_code", "discount", "province", "tax", "total"],
+  "additionalProperties": false,
+  "$defs": {
+    "money": {"type": "string", "pattern": "^\\d+\\.\\d{2}$"}
+  },
+  "properties": {
+    "cart_id": {"type": "string", "pattern": "^C\\d{4}$"},
+    "status": {"enum": ["open", "ordered"]},
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["product_id", "name", "unit_price", "quantity", "line_total"],
+        "additionalProperties": false,
+        "properties": {
+          "product_id": {"type": "integer"},
+          "name": {"type": "string"},
+          "unit_price": {"$ref": "#/$defs/money"},
+          "quantity": {"type": "integer", "minimum": 1, "maximum": 10},
+          "line_total": {"$ref": "#/$defs/money"}
+        }
+      }
+    },
+    "item_count": {"type": "integer", "minimum": 0},
+    "subtotal": {"$ref": "#/$defs/money"},
+    "discount_code": {"type": ["string", "null"]},
+    "discount": {"$ref": "#/$defs/money"},
+    "province": {"enum": ["AB", "BC", "ON", "QC"]},
+    "tax": {"$ref": "#/$defs/money"},
+    "total": {"$ref": "#/$defs/money"}
+  }
+}

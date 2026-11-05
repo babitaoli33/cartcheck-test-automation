@@ -1,0 +1,38 @@
+name: tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          python -m playwright install --with-deps chromium
+
+      - name: Smoke tests
+        run: python -m pytest -m smoke -q --browser chromium
+
+      - name: API tests
+        run: python -m pytest -m api -q
+
+      - name: UI tests
+        run: python -m pytest -m ui -q --browser chromium --screenshot only-on-failure --output test-results
+
+      - name: Full run with HTML report
+        if: always()
+        run: python -m pytest -q --browser chromium --html=reports/test-report.html --self-contained-html
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: |
+            reports/
+            test-results/

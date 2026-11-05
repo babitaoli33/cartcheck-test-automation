@@ -1,0 +1,8 @@
+[
+  {"id": "ON-exact",       "items": {"3": 4}, "province": "ON", "expected_tax": "1.69", "note": "13.00 x 13% = 1.69 exactly"},
+  {"id": "BC-exact",       "items": {"4": 1}, "province": "BC", "expected_tax": "4.68", "note": "39.00 x 12% = 4.68 exactly"},
+  {"id": "QC-round-down",  "items": {"3": 2}, "province": "QC", "expected_tax": "0.97", "note": "6.50 x 14.975% = 0.973375"},
+  {"id": "ON-half-up",     "items": {"2": 1}, "province": "ON", "expected_tax": "1.37", "note": "10.50 x 13% = 1.365 -> rounds up"},
+  {"id": "AB-half-up",     "items": {"1": 1}, "province": "AB", "expected_tax": "1.25", "note": "24.99 x 5% = 1.2495 -> 1.25"},
+  {"id": "ON-round-up",    "items": {"1": 1}, "province": "ON", "expected_tax": "3.25", "note": "24.99 x 13% = 3.2487 -> 3.25"}
+]

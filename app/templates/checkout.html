@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Checkout - ShopLite{% endblock %}
+{% block content %}
+<h1>Checkout</h1>
+{% if error %}<p class="error" data-testid="checkout-error">{{ error }}</p>{% endif %}
+<p>Order total: <strong data-testid="checkout-total">${{ cart.total }}</strong></p>
+<form method="post" action="/checkout">
+  <label>Email <input name="email" type="text" data-testid="email-input"></label>
+  <label>Province
+    <select name="province" data-testid="checkout-province">
+      {% for p in provinces %}<option value="{{ p }}" {% if p == cart.province %}selected{% endif %}>{{ p }}</option>{% endfor %}
+    </select>
+  </label>
+  <button type="submit" data-testid="place-order">Place order</button>
+</form>
+{% endblock %}

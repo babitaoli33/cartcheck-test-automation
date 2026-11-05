@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}ShopLite{% endblock %}</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 0; color: #222; }
+    header { display: flex; justify-content: space-between; padding: 12px 24px; background: #1f3a5f; color: #fff; }
+    header a { color: #fff; text-decoration: none; font-weight: 600; }
+    main { max-width: 860px; margin: 24px auto; padding: 0 16px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+    .card { border: 1px solid #ddd; border-radius: 8px; padding: 14px; }
+    .error { background: #fdecea; color: #a12622; padding: 10px; border-radius: 6px; }
+    .notice { background: #e7f4e4; padding: 10px; border-radius: 6px; }
+    table { width: 100%; border-collapse: collapse; }
+    td, th { text-align: left; padding: 8px; border-bottom: 1px solid #eee; }
+    button { cursor: pointer; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/" data-testid="home-link">ShopLite</a>
+    <a href="/cart" data-testid="cart-link">Cart (<span data-testid="cart-badge">{{ cart_lines }}</span>)</a>
+  </header>
+  <main>{% block content %}{% endblock %}</main>
+</body>
+</html>

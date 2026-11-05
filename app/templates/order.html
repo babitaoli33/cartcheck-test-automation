@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Order confirmed - ShopLite{% endblock %}
+{% block content %}
+<h1 data-testid="order-heading">Thank you for your order!</h1>
+<p>Order number: <strong data-testid="order-id">{{ order.order_id }}</strong></p>
+<p>Total charged: <strong data-testid="order-total">${{ order.total }}</strong></p>
+<p>A confirmation was sent to <span data-testid="order-email">{{ order.email }}</span>.</p>
+{% endblock %}
